@@ -1,0 +1,122 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Playable single-player game with themed UI and persistent leaderboard",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add a playable in-browser single-player 2D game with clear rules, score, win/lose states, and keyboard + touch controls.",
+      "acceptanceCriteria": [
+        "A user can start a new game from the UI without reloading the page.",
+        "The game supports keyboard controls on desktop and touch controls on mobile.",
+        "The game includes a visible score and an end-of-game state with a restart option.",
+        "All user-facing text is in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/types.ts",
+          "operation": "create",
+          "description": "Define shared 2D game types/constants (game phases, directions, timing, scoring) to keep gameplay logic consistent and testable."
+        },
+        {
+          "path": "frontend/src/game/useGame.ts",
+          "operation": "create",
+          "description": "Implement the core 2D game loop as a React hook (new game, pause/resume if needed, score tracking, win/lose detection, restart) with a single source of truth for state transitions."
+        },
+        {
+          "path": "frontend/src/components/game/GameControls.tsx",
+          "operation": "create",
+          "description": "Create on-screen touch controls (direction/action buttons) suitable for mobile and usable on desktop; wire control events into the game hook. Use shadcn-ui primitives (e.g., Button/Card) for consistent controls styling; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/GameHud.tsx",
+          "operation": "create",
+          "description": "Render the gameplay HUD (score, state indicators, restart) and ensure all user-facing text is English. Use shadcn-ui components for layout/styling consistency; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/GameScreen.tsx",
+          "operation": "create",
+          "description": "Compose the full game experience (menu -> gameplay -> game over) including keyboard handlers for desktop and integration of the on-screen controls for mobile; ensure restart starts a new game without full page reload."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the App shell that renders the new GameScreen as the primary experience (or as a top-level section) and ensures it is reachable from the initial render (no orphan screens)."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Ensure the application entry continues to render the App shell that includes the game experience (no navigation dead-ends) and remains SPA-friendly (no reload-based starts)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add signed-in principal high-score persistence with best-score saving and a global leaderboard, while keeping gameplay available when signed out.",
+      "acceptanceCriteria": [
+        "If the user is signed in, finishing a game can submit the score to the backend.",
+        "The backend stores and returns each principal’s best score (only updates when the new score is higher).",
+        "The frontend can display the current user’s best score and a global top leaderboard list.",
+        "If the user is not signed in, the UI clearly indicates that saving scores requires sign-in (English text)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useScores.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to fetch the current user's best score (when authenticated), submit a finished-game score, and fetch the global leaderboard using the existing actor from useActor."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add a Login/Logout button using Internet Identity via the authorization component guidance (useInternetIdentity + query cache clearing on logout). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/LeaderboardPanel.tsx",
+          "operation": "create",
+          "description": "Display the signed-in user's best score and a global top leaderboard list; if signed out, show an English message that sign-in is required to save scores. Use shadcn-ui components (e.g., Card/Table/Button) for the leaderboard UI; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/game/GameScreen.tsx",
+          "operation": "modify",
+          "description": "On game completion, if authenticated, submit the final score and refresh best-score/leaderboard; if not authenticated, render an English callout explaining sign-in is required to save scores and provide the LoginButton."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the leaderboard UI into the game screens (menu/game over/leaderboard view) so users can always access the global leaderboard and see their best score when signed in."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Apply a consistent non-blue/purple visual theme across all game screens with responsive, readable UI styling.",
+      "acceptanceCriteria": [
+        "Game-related screens share a consistent visual style (background, typography, button styles, spacing).",
+        "The primary palette does not rely on blue/purple as the main theme colors.",
+        "UI remains readable and usable on small screens."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add a CSS entry point to match the existing import in frontend/src/main.tsx and centralize game theme tokens/utilities; ensure the primary palette uses non-blue/purple colors (e.g., warm neutrals + green/orange accents) and supports small-screen readability."
+        },
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Update global CSS variables and base styling to match the new coherent game theme (avoid blue/purple as primary), keeping contrast accessible and typography consistent across menu, HUD, game over, and leaderboard."
+        },
+        {
+          "path": "frontend/src/components/game/GameScreen.tsx",
+          "operation": "modify",
+          "description": "Apply consistent layout, spacing, and theme-aware classes across menu/gameplay/game-over/leaderboard sections so the game UI feels cohesive and remains usable on small screens."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust/extend Tailwind theme tokens if needed to support the chosen non-blue/purple palette and consistent component styling across all game screens."
+        }
+      ]
+    }
+  ]
+}

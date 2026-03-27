@@ -1,0 +1,79 @@
+{
+  "kind": "build_request",
+  "title": "Add a playable game experience to the app",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Add a playable in-browser game to the frontend (single-player) with clear rules, win/lose conditions, and keyboard + on-screen controls suitable for desktop and mobile.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Can you make game also"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A user can start a new game from the UI without reloading the page.",
+        "The game supports keyboard controls on desktop and touch controls on mobile.",
+        "The game includes a visible score and an end-of-game state with a restart option.",
+        "All user-facing text is in English."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a persistent high-score system tied to the signed-in Internet Identity principal, including saving a user’s best score and showing a global leaderboard.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Can you make game also"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If the user is signed in, finishing a game can submit the score to the backend.",
+        "The backend stores and returns each principal’s best score (only updates when the new score is higher).",
+        "The frontend can display the current user’s best score and a global top leaderboard list.",
+        "If the user is not signed in, the UI clearly indicates that saving scores requires sign-in (English text)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Create and apply a coherent visual theme for the game UI (colors, typography, layout, and component styling) and use it consistently across the game screens (menu, gameplay HUD, game over, leaderboard). Avoid blue/purple as primary theme colors.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Can you make game also"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Game-related screens share a consistent visual style (background, typography, button styles, spacing).",
+        "The primary palette does not rely on blue/purple as the main theme colors.",
+        "UI remains readable and usable on small screens."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo; only add migration.mo if upgrading existing stable state is required.",
+    "Do not edit frontend paths marked immutable by the system (compose existing UI components instead).",
+    "Do not use third-party authentication providers; only Internet Identity.",
+    "No WebSockets or real-time multiplayer features."
+  ],
+  "nonGoals": [
+    "Multiplayer gameplay or real-time interactions.",
+    "External databases or third-party backend services.",
+    "Integrations with external AI/LLM services.",
+    "Complex 3D gameplay (unless explicitly requested later)."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

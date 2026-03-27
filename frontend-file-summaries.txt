@@ -1,0 +1,14 @@
+{
+  "frontend/src/App.tsx": "Root application component that renders the GameScreen and Toaster for notifications.",
+  "frontend/src/pages/GameScreen.tsx": "Main game screen component managing three views (menu, game, leaderboard) with Internet Identity integration, score submission, and navigation between states.",
+  "frontend/src/game/types.ts": "Type definitions and constants for the Snake game including Direction, GamePhase, Position, GameState, grid size, speed, and scoring configuration.",
+  "frontend/src/game/useGame.ts": "Custom React hook implementing the complete Snake game logic including game loop, collision detection, movement, scoring, and keyboard controls.",
+  "frontend/src/components/game/GameCanvas.tsx": "Canvas-based rendering component that draws the Snake game grid, snake with gradient effects and eyes, and food with radial gradient.",
+  "frontend/src/components/game/GameHud.tsx": "Heads-up display component showing current score, game status, and control buttons for pause/resume/restart functionality.",
+  "frontend/src/components/game/GameControls.tsx": "Touch-friendly directional control pad with four arrow buttons for mobile gameplay, indicating current direction.",
+  "frontend/src/components/game/LeaderboardPanel.tsx": "Displays user's personal best score and global top 10 leaderboard with rank icons, player principals, and scores.",
+  "frontend/src/components/auth/LoginButton.tsx": "Internet Identity authentication button component handling login/logout with loading states and query cache clearing.",
+  "frontend/src/hooks/useScores.ts": "React Query hooks for fetching caller's score, global leaderboard, and saving scores to the backend with automatic cache invalidation.",
+  "frontend/src/index.css": "Global styles with OKLCH color system using emerald/green and amber/orange palette for a warm, nature-inspired theme avoiding blue/purple.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with custom color tokens, border radius, shadows, and animations for consistent game UI styling."
+}

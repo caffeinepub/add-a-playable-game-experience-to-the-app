@@ -1,0 +1,72 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-playable-in-browser-game-to-the-frontend-single-player-with-clear-rules-win-lose-conditions-and-keyboard-on-screen-controls-suitable-for-desktop-and-mobile",
+      "featureTitle": "Add a playable in-browser game to the frontend (single-player) with clear rules, win/lose conditions, and keyboard + on-screen controls suitable for desktop and mobile.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/game/GameControls.tsx",
+        "frontend/src/components/game/GameHud.tsx",
+        "frontend/src/game/types.ts",
+        "frontend/src/game/useGame.ts",
+        "frontend/src/main.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-persistent-high-score-system-tied-to-the-signed-in-internet-identity-principal-including-saving-a-user-s-best-score-and-showing-a-global-leaderboard",
+      "featureTitle": "Implement a persistent high-score system tied to the signed-in Internet Identity principal, including saving a user’s best score and showing a global leaderboard.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/game/LeaderboardPanel.tsx",
+        "frontend/src/hooks/useScores.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-and-apply-a-coherent-visual-theme-for-the-game-ui-colors-typography-layout-and-component-styling-and-use-it-consistently-across-the-game-screens-menu-gameplay-hud-game-over-leaderboard-avoid-blue-purple-as-primary-theme-colors",
+      "featureTitle": "Create and apply a coherent visual theme for the game UI (colors, typography, layout, and component styling) and use it consistently across the game screens (menu, gameplay HUD, game over, leaderboard). Avoid blue/purple as primary theme colors.",
+      "files": [
+        "frontend/index.css",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

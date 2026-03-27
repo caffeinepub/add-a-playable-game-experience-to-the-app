@@ -1,0 +1,69 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-08T19:30:16.737Z",
+  "summary": "The diff adds a single-player Snake game UI with keyboard/touch controls, themed styling, and a leaderboard UI plus backend score APIs. However, the backend score storage does not appear persistent (no stable state), and it’s unclear from the truncated frontend whether scores are actually submitted when a game ends. The diff also introduces access-control/admin-token plumbing that was not requested.",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Implement a persistent high-score system tied to the signed-in Internet Identity principal (store each principal’s best score persistently and show a global leaderboard).",
+      "reason": "Backend uses an in-memory Map for scores with no stable variable, no preupgrade/postupgrade, and no migration file shown; this will not persist across canister upgrades.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "If the user is signed in, finishing a game can submit the score to the backend.",
+      "reason": "GameScreen defines a handleGameOver() that calls saveScore, but in the provided (truncated) content there is no evidence that handleGameOver is invoked when the game transitions to gameOver.",
+      "evidence": [
+        "frontend/src/pages/GameScreen.tsx (truncated)",
+        "frontend/src/game/useGame.ts (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Custom access control / authorization mixin and secret-based initialization for backend calls (admin token URL param, _initializeAccessControlWithSecret usage).",
+      "reason": "BuildRequest only requires Internet Identity–tied high scores and a leaderboard; it does not request additional authorization layers or secret-token admin initialization logic.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/utils/urlParams.ts (truncated)"
+      ]
+    },
+    {
+      "description": "Additional root-level frontend/index.css separate from frontend/src/index.css.",
+      "reason": "Not requested; also introduces potentially conflicting theme token definitions beyond the explicitly game UI theming requirement.",
+      "evidence": [
+        "frontend/index.css",
+        "frontend/src/index.css"
+      ]
+    }
+  ],
+  "confidence": 0.68,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/game/GameCanvas.tsx",
+    "frontend/src/components/game/GameControls.tsx",
+    "frontend/src/components/game/GameHud.tsx",
+    "frontend/src/components/game/LeaderboardPanel.tsx",
+    "frontend/src/game/types.ts",
+    "frontend/src/game/useGame.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useScores.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/GameScreen.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
